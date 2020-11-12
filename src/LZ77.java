@@ -26,7 +26,7 @@ public class LZ77 {
             look_Ahead.add(String.valueOf(content.charAt(indexofText)));// Fill look ahead buffer
             ///try new condition
            while(!look_Ahead.isEmpty()) {
-                if (!Search.contains(look_Ahead.get(0))||Search.isEmpty()) {// Substring NotFound in searchbuffer
+                if (!Search.contains(look_Ahead.get(0))) {// Substring NotFound in searchbuffer
                     Tags t = new Tags();
                     t.set_Tags(0, 0, look_Ahead.get(0).toString());
                     tags.add(t);
@@ -68,7 +68,7 @@ public class LZ77 {
                    outputFile.write(nextChar);
                    content+=nextChar; //adding char to content
                }
-            else{ //appeard once before at least
+            else{ //appeard once before at leasts
                 String o="";
                 int beginofSubString=content.length()-pos;
                 //there is position value , so go back p values to get char
@@ -77,10 +77,10 @@ public class LZ77 {
                 o+=content.substring(beginofSubString+1, beginofSubString+len);
                 //add nextchar
                 o+=nextChar;
+                //print in file
                 outputFile.write(o);
                 content+=o;
             }
-
         }
         scan.close();
         outputFile.close();
