@@ -13,6 +13,6 @@ public class Tags {
         nextchar=nc;
     }
     public String toString(){
-        return "<"+Position+","+Length+","+nextchar+">"+System.lineSeparator();
+        return +Position+","+Length+","+nextchar+System.lineSeparator();
     }
 }
