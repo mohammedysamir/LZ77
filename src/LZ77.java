@@ -11,7 +11,7 @@ public class LZ77 {
     private String CompressPath = "C:/Users/mohammed/Desktop/Multimedia/LZ77/src/CompressedText.txt";
     private String DecompressPath = "C:/Users/mohammed/Desktop/Multimedia/LZ77/src/DecompressedText.txt";
     String content = "";
-    int SearchSize = 8, look_AheadSize = 8;
+    int SearchSize = 50, look_AheadSize = 30;
 
     public void Compress() throws IOException {
         Path path = Paths.get(OriginalPath);
@@ -103,5 +103,13 @@ public class LZ77 {
         }
         scan.close();
         outputFile.close();
+    }
+
+    //function to find closest match to reduce pos values
+    private int findNearest(ArrayList<String> Text, String match) {
+        for (int i = Text.size() - 1; i >= 0; i--)
+            if (Text.get(i) == match)
+                return i;
+        return -1;
     }
 }
