@@ -36,11 +36,12 @@ public class LZ77 {
                 // pos=end-index of matching;
                 int pos = Search.size() - Search.indexOf(look_Ahead.get(0));
                 // len= try get matching from search and count length
-                int len = 0; // default value
+                int len = 1; // default value
                 int iter = 1;
                 String LMatching = look_Ahead.get(0);
                 String SMatching = Search.get(Search.size() - pos);
-                while (LMatching.equalsIgnoreCase(SMatching) && iter < pos && iter < look_Ahead.size()) {
+                // need to recheck condition
+                while (LMatching.equals(SMatching) && iter < pos && iter < look_Ahead.size()) {
                     len++;
                     LMatching += look_Ahead.get(iter);
                     SMatching += Search.get(Search.size() - pos + iter);
@@ -50,10 +51,9 @@ public class LZ77 {
                 String nc = Character.toString(LMatching.charAt(LMatching.length() - 1));
                 Tags t = new Tags();
                 t.set_Tags(pos, len, nc); // define tag and set properties
-                if (pos != 0 && len != 0 && !nc.isEmpty())
-                    tags.add(t); // add it to array to print
+                tags.add(t); // add it to array to print
                 // shift by len+1
-                for (; len > -1; len--) {
+                for (; len > 0; len--) {
                     if (Search.size() == SearchSize)
                         Search.remove(0);// if buffer is full
                     Search.add(look_Ahead.get(0));
@@ -103,13 +103,5 @@ public class LZ77 {
         }
         scan.close();
         outputFile.close();
-    }
-
-    //function to find closest match to reduce pos values
-    private int findNearest(ArrayList<String> Text, String match) {
-        for (int i = Text.size() - 1; i >= 0; i--)
-            if (Text.get(i) == match)
-                return i;
-        return -1;
     }
 }
