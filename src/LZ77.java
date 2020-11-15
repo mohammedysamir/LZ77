@@ -7,9 +7,9 @@ public class LZ77 {
     private ArrayList<String> Search = new ArrayList<>();
     private ArrayList<String> look_Ahead = new ArrayList<>();
     private ArrayList<Tags> tags = new ArrayList<Tags>();
-    private String OriginalPath = "C:/Users/mohammed/Desktop/Multimedia/LZ77/src/alphabet.txt";
-    private String CompressPath = "C:/Users/mohammed/Desktop/Multimedia/LZ77/src/CompressedText.txt";
-    private String DecompressPath = "C:/Users/mohammed/Desktop/Multimedia/LZ77/src/DecompressedText.txt";
+    private String OriginalPath = "C:/Users/mohammed/Desktop/Multimedia/LZ-77/src/alphabet.txt";
+    private String CompressPath = "C:/Users/mohammed/Desktop/Multimedia/LZ-77/src/CompressedText.txt";
+    private String DecompressPath = "C:/Users/mohammed/Desktop/Multimedia/LZ-77/src/DecompressedText.txt";
     String content = "";
     int SearchSize = 1024, look_AheadSize =50;
 
@@ -58,15 +58,15 @@ public class LZ77 {
                         Search.remove(0);// if buffer is full
                     Search.add(look_Ahead.get(0));
                     look_Ahead.remove(0);
+
                     if (indexofText < content.length()) {
-                        // Adding new character to the buffer
+                        // Adding new characters to the buffer
                         look_Ahead.add(String.valueOf(content.charAt(indexofText++)));
                     }
                 }
             }
         }
         FileWriter out = new FileWriter(CompressPath);
-        ;
         WriteToFile(out, tags);
     }
 
@@ -101,6 +101,7 @@ public class LZ77 {
         outputFile.close();
     }
 
+    //Write Tags to file
     private void WriteToFile(FileWriter out, ArrayList<Tags> tags) throws IOException {
         for (int i = 0; i < tags.size(); i++)
             out.write(tags.get(i).toString());
@@ -112,6 +113,7 @@ public class LZ77 {
         // remove carrige return and line feed
     }
 
+    //Check if Original data = Decompressed data
     public boolean isEqual() throws IOException {
         String Original=ReadFromFile(Paths.get(OriginalPath));
         String ResultDecompress=ReadFromFile(Paths.get(DecompressPath));
