@@ -101,14 +101,20 @@ public class LZ77 {
         outputFile.close();
     }
 
-    public void WriteToFile(FileWriter out, ArrayList<Tags> tags) throws IOException {
+    private void WriteToFile(FileWriter out, ArrayList<Tags> tags) throws IOException {
         for (int i = 0; i < tags.size(); i++)
             out.write(tags.get(i).toString());
         out.close();
     }
 
-    public String ReadFromFile(Path path) throws IOException {
+    private String ReadFromFile(Path path) throws IOException {
         return Files.readString(path, StandardCharsets.UTF_8).replace("\n", "").replace("\r", "");
         // remove carrige return and line feed
+    }
+
+    public boolean isEqual() throws IOException {
+        String Original=ReadFromFile(Paths.get(OriginalPath));
+        String ResultDecompress=ReadFromFile(Paths.get(DecompressPath));
+        return Original.equals(ResultDecompress)?true:false;
     }
 }
