@@ -11,7 +11,7 @@ public class LZ77 {
     private String CompressPath = "C:/Users/mohammed/Desktop/Multimedia/LZ77/src/CompressedText.txt";
     private String DecompressPath = "C:/Users/mohammed/Desktop/Multimedia/LZ77/src/DecompressedText.txt";
     String content = "";
-    int SearchSize = 50, look_AheadSize = 30;
+    int SearchSize = 8, look_AheadSize = 4;
 
     public void Compress() throws IOException {
         Path path = Paths.get(OriginalPath);
@@ -50,7 +50,7 @@ public class LZ77 {
                 // nc=nc+content.charAt(indexofText++);
                 String nc = Character.toString(LMatching.charAt(LMatching.length() - 1));
                 Tags t = new Tags();
-                t.set_Tags(pos, len, nc); // define tag and set properties
+                t.set_Tags(pos, len-1, nc); // define tag and set properties
                 tags.add(t); // add it to array to print
                 // shift by len+1
                 for (; len > 0; len--) {
